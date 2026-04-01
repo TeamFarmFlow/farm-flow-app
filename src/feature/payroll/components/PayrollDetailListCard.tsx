@@ -85,7 +85,7 @@ export function PayrollDetailListCard({
             type="button"
             onClick={() => onRemove(row)}
             disabled={row.payrolled || deletingRowId === row.id || !canDeleteAttendance}
-            className="inline-flex h-full min-h-[4rem] items-center justify-center rounded-xl border border-rose-200 bg-rose-50 px-2 text-rose-600 transition-all hover:bg-rose-100 disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-100 disabled:text-slate-300"
+            className="inline-flex h-full min-h-16 items-center justify-center rounded-xl border border-rose-200 bg-rose-50 px-2 text-rose-600 transition-all hover:bg-rose-100 disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-100 disabled:text-slate-300"
             aria-label="이력 삭제"
             title="이력 삭제"
           >

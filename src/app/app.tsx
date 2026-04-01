@@ -6,9 +6,12 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 
 import { AuthBootstrap } from '@app/feature/auth';
+import { useVersion } from '@app/feature/version';
 import { AppErrorBoundary } from '@app/shared/ui/error';
 
 export function App() {
+  useVersion();
+
   return (
     <AppErrorBoundary>
       <ToastContainer

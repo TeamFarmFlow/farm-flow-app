@@ -69,13 +69,6 @@ export function MemberEditModal({ isOpen, row, fetchData, onClose }: MemberEditM
   }, [reset, row]);
 
   const selectedRoleId = useWatch({ control, name: 'roleId' }) ?? row.role.id;
-  const payRatePerHour = useWatch({ control, name: 'payRatePerHour' }) ?? '';
-  const payDeductionAmount = useWatch({ control, name: 'payDeductionAmount' }) ?? '';
-  const hasRoleChange = canUpdateRole && selectedRoleId !== row.role.id;
-  const hasPayChange =
-    canUpdatePay &&
-    (Formatter.toInt(payRatePerHour) !== row.payRatePerHour || Formatter.toInt(payDeductionAmount) !== row.payDeductionAmount);
-  const isSaveDisabled = isSubmitting || (!hasRoleChange && !hasPayChange);
 
   const description = useMemo(() => {
     if (canUpdateRole && canUpdatePay) {
@@ -90,16 +83,6 @@ export function MemberEditModal({ isOpen, row, fetchData, onClose }: MemberEditM
   }, [canUpdatePay, canUpdateRole, row.user.name]);
 
   const handleUpdate = async ({ roleId, payRatePerHour, payDeductionAmount }: MemberUpdateFormData) => {
-    const payload: {
-      roleId?: string;
-      payRatePerHour?: number;
-      payDeductionAmount?: number;
-    } = {};
-
-    if (Object.keys(payload).length === 0) {
-      return;
-    }
-
     try {
       if (canUpdateRole) {
         await memberApi.updateRole(row.user.id, { roleId });
@@ -112,7 +95,6 @@ export function MemberEditModal({ isOpen, row, fetchData, onClose }: MemberEditM
         });
       }
       await fetchData();
-      onClose();
       Toast.success('저장되었습니다.');
     } catch (e) {
       Toast.error(getErrorCodeMessage(e));
@@ -170,7 +152,7 @@ export function MemberEditModal({ isOpen, row, fetchData, onClose }: MemberEditM
           <button
             type="submit"
             className="w-full rounded-3xl bg-primary py-4 font-bold text-white shadow-premium transition-all active:scale-[0.98] disabled:opacity-50 disabled:grayscale"
-            disabled={isSaveDisabled}
+            disabled={isSubmitting}
           >
             저장
           </button>

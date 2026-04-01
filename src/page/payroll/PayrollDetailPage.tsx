@@ -8,7 +8,13 @@ import {
   PayrollTargetDetailListResponse,
   PayrollTargetDetailResponse,
 } from '@app/feature/payroll/api';
-import { PayrollDetailList, PayrollDetailSummary, PayrollTimeEditModal, PayrollUpdateModal, TimeEditTarget } from '@app/feature/payroll/components';
+import {
+  PayrollDetailList,
+  PayrollDetailSummary,
+  PayrollTimeEditModal,
+  PayrollUpdateModal,
+  TimeEditTarget,
+} from '@app/feature/payroll/components';
 import { getErrorCodeMessage } from '@app/shared/api';
 import { PermissionKey } from '@app/shared/models';
 import { useAuthStore } from '@app/shared/stores';
@@ -42,8 +48,9 @@ export default function PayrollDetailPage() {
   const [removeTarget, setRemoveTarget] = useState<PayrollTargetDetailResponse | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingRowId, setDeletingRowId] = useState<string | null>(null);
-  const canUpdateAttendance = role?.super || role?.permissionKeys.includes(PermissionKey.AttendanceHistoryUpdate);
-  const canUpdatePayroll = role?.super || role?.permissionKeys.includes(PermissionKey.MemberPayUpdate);
+  const canUpdateAttendance = role?.permissionKeys.includes(PermissionKey.PayrollAttendanceHistoryUpdate);
+  const canDeleteAttendance = role?.permissionKeys.includes(PermissionKey.PayrollAttendanceHistoryDelete);
+  const canUpdatePayroll = role?.permissionKeys.includes(PermissionKey.MemberPayUpdate);
 
   const fetchDetail = async () => {
     if (!userId) {
@@ -114,12 +121,7 @@ export default function PayrollDetailPage() {
       const buildDateTimeFromWorkDate = (time: string) => {
         const [hours, minutes] = time.split(':').map(Number);
 
-        return dayjs(timeEditTarget.workDate)
-          .hour(hours)
-          .minute(minutes)
-          .second(0)
-          .millisecond(0)
-          .format('YYYY-MM-DDTHH:mm:ss');
+        return dayjs(timeEditTarget.workDate).hour(hours).minute(minutes).second(0).millisecond(0).format('YYYY-MM-DDTHH:mm:ss');
       };
 
       await payrollApi.updateAttendance(userId, timeEditTarget.rowId, {
@@ -187,6 +189,7 @@ export default function PayrollDetailPage() {
           rows={detail?.rows ?? []}
           loading={loading}
           canUpdateAttendance={canUpdateAttendance}
+          canDeleteAttendance={canDeleteAttendance}
           deletingRowId={deletingRowId}
           onEditTime={openTimeEditModal}
           onRemove={setRemoveTarget}

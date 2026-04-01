@@ -16,12 +16,21 @@ type PayrollDetailListProps = {
   rows: PayrollTargetDetailResponse[];
   loading: boolean;
   canUpdateAttendance: boolean | undefined;
+  canDeleteAttendance: boolean | undefined;
   deletingRowId?: string | null;
   onEditTime: (row: PayrollTargetDetailResponse) => void;
   onRemove: (row: PayrollTargetDetailResponse) => void;
 };
 
-export function PayrollDetailList({ rows, loading, canUpdateAttendance, deletingRowId, onEditTime, onRemove }: PayrollDetailListProps) {
+export function PayrollDetailList({
+  rows,
+  loading,
+  canUpdateAttendance,
+  canDeleteAttendance,
+  deletingRowId,
+  onEditTime,
+  onRemove,
+}: PayrollDetailListProps) {
   if (loading) {
     return <ListLoader message="정산 상세 내역을 불러오는 중..." />;
   }
@@ -37,6 +46,7 @@ export function PayrollDetailList({ rows, loading, canUpdateAttendance, deleting
           key={row.id}
           row={row}
           canUpdateAttendance={canUpdateAttendance}
+          canDeleteAttendance={canDeleteAttendance}
           deletingRowId={deletingRowId}
           onEditTime={onEditTime}
           onRemove={onRemove}

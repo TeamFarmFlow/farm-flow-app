@@ -11,8 +11,10 @@ export enum PermissionKey {
   MemberRoleUpdate = 'member.role.update',
   MemberPayUpdate = 'member.pay.update',
   MemberRemove = 'member.remove',
-  AttendanceHistoryUpdate = 'attendance.history.update',
   PayrollRead = 'payroll.read',
+  PayrollCheck = 'payroll.check',
+  PayrollAttendanceHistoryUpdate = 'payroll.attendance.history.update',
+  PayrollAttendanceHistoryDelete = 'payroll.attendance.history.delete',
 }
 
 export const PERMISSION_LABEL: Partial<Record<PermissionKey, string>> = {
@@ -24,10 +26,11 @@ export const PERMISSION_LABEL: Partial<Record<PermissionKey, string>> = {
   [PermissionKey.MemberRead]: '멤버 조회',
   [PermissionKey.InvitationCreate]: '멤버 초대',
   [PermissionKey.MemberRoleUpdate]: '멤버 권한 관리',
+  [PermissionKey.MemberPayUpdate]: '멤버 시급/공제액 수정',
   [PermissionKey.MemberRemove]: '멤버 삭제',
   [PermissionKey.PayrollRead]: '급여 정산 조회',
-  [PermissionKey.AttendanceHistoryUpdate]: '출퇴근 이력 수정',
-  [PermissionKey.MemberPayUpdate]: '시급/공제액 수정',
+  [PermissionKey.PayrollAttendanceHistoryUpdate]: '출퇴근 이력 수정',
+  [PermissionKey.PayrollAttendanceHistoryDelete]: '출퇴근 이력 삭제',
 };
 
 export const PERMISSION_LABEL_ENTRIES = Object.entries(PERMISSION_LABEL) as [PermissionKey, string][];

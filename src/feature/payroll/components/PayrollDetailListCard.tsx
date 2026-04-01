@@ -7,6 +7,7 @@ import { DateTime } from '@app/shared/helpers';
 type PayrollDetailListCardProps = {
   row: PayrollTargetDetailResponse;
   canUpdateAttendance: boolean | undefined;
+  canDeleteAttendance: boolean | undefined;
   deletingRowId?: string | null;
   onEditTime: (row: PayrollTargetDetailResponse) => void;
   onRemove: (row: PayrollTargetDetailResponse) => void;
@@ -30,7 +31,14 @@ function getStatusMeta(row: PayrollTargetDetailResponse) {
   return { label: '확인필요', className: STATUS_STYLE.needsCheck };
 }
 
-export function PayrollDetailListCard({ row, canUpdateAttendance, deletingRowId, onEditTime, onRemove }: PayrollDetailListCardProps) {
+export function PayrollDetailListCard({
+  row,
+  canUpdateAttendance,
+  canDeleteAttendance,
+  deletingRowId,
+  onEditTime,
+  onRemove,
+}: PayrollDetailListCardProps) {
   return (
     <article className="rounded-[1.45rem] border border-slate-200 bg-white px-3.5 py-3 shadow-sm">
       <div className="flex flex-col gap-2.5">
@@ -51,7 +59,9 @@ export function PayrollDetailListCard({ row, canUpdateAttendance, deletingRowId,
             </button>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className={`rounded-full px-2.5 py-1 text-[10px] font-bold tracking-wide ${getStatusMeta(row).className}`}>{getStatusMeta(row).label}</div>
+            <div className={`rounded-full px-2.5 py-1 text-[10px] font-bold tracking-wide ${getStatusMeta(row).className}`}>
+              {getStatusMeta(row).label}
+            </div>
             <div className="rounded-full bg-primary/8 px-2.5 py-1 text-[10px] font-bold tracking-wide text-primary">
               총 {DateTime.formatTime(row.seconds)}
             </div>
@@ -65,16 +75,16 @@ export function PayrollDetailListCard({ row, canUpdateAttendance, deletingRowId,
               {row.checkedInAt ? dayjs(row.checkedInAt).format('HH:mm') : '-'}
             </p>
           </div>
-            <div className="rounded-2xl border border-slate-100 bg-slate-50/85 px-3 py-2.5">
-              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">퇴근</p>
-              <p className="mt-0.5 text-[0.88rem] font-black tracking-[-0.02em] text-slate-800">
-                {row.checkedOutAt ? dayjs(row.checkedOutAt).format('HH:mm') : '-'}
-              </p>
-            </div>
+          <div className="rounded-2xl border border-slate-100 bg-slate-50/85 px-3 py-2.5">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">퇴근</p>
+            <p className="mt-0.5 text-[0.88rem] font-black tracking-[-0.02em] text-slate-800">
+              {row.checkedOutAt ? dayjs(row.checkedOutAt).format('HH:mm') : '-'}
+            </p>
+          </div>
           <button
             type="button"
             onClick={() => onRemove(row)}
-            disabled={row.payrolled || deletingRowId === row.id}
+            disabled={row.payrolled || deletingRowId === row.id || !canDeleteAttendance}
             className="inline-flex h-full min-h-[4rem] items-center justify-center rounded-xl border border-rose-200 bg-rose-50 px-2 text-rose-600 transition-all hover:bg-rose-100 disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-100 disabled:text-slate-300"
             aria-label="이력 삭제"
             title="이력 삭제"

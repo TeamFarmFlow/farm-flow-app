@@ -13,12 +13,14 @@ export function useVersion() {
       reloading = res.version !== NPM_PACKAGE_VERSION;
     };
 
+    void checkVersion();
+
     while (true) {
       if (reloading) {
         break;
       }
 
-      void checkVersion();
+      setTimeout(checkVersion, 10_000);
     }
 
     Toast.info('새 버전이 배포되었습니다. 페이지를 새로고침합니다.');

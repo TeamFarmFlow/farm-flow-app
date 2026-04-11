@@ -20,7 +20,7 @@ pipeline {
       }
       steps {
         withCredentials([
-          file(credentialsId: 'farm-flow-app-env', variable: 'APP_ENV_CREDENTIAL_FILE'),
+          file(credentialsId: 'FARM_FLOW_APP_ENV', variable: 'APP_ENV_CREDENTIAL_FILE'),
         ]) {
           sh '''
             APP_ENV_FILE=.env.production
@@ -52,7 +52,7 @@ pipeline {
           set -eu
 
           timestamp=$(date +%s)
-          DIST_DIR=/www/app
+          DIST_DIR=/www/farm-flow/app
           
           if [ ! -d "$DIST_DIR" ]; then
             mkdir -p "$DIST_DIR"

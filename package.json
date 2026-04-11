@@ -1,14 +1,15 @@
 {
   "name": "farm-flow-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "prepare": "node scripts/prepare",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "patch": "npm version patch --no-git-tag-version"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

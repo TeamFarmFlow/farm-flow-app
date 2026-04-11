@@ -57,7 +57,7 @@ pipeline {
           if [ ! -d "$DIST_DIR" ]; then
             mkdir -p "$DIST_DIR"
           fi
-          
+
           TEMP_DIST_DIR="dist_$timestamp"
 
           cleanup() {

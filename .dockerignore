@@ -1,6 +1,10 @@
 node_modules
 dist
 scripts
+
+!scripts/prebuild.js
+!scripts/postbuild.js
+
 .git
 .husky
 .env

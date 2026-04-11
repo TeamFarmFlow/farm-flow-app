@@ -10,7 +10,7 @@ export function InvitationAcceptHeader() {
       <p className="app-kicker text-primary/70">Invitation Access</p>
       <h2 className="mt-2 text-[1.6rem] font-black tracking-[-0.04em] text-slate-800">초대 코드를 입력하세요</h2>
       <p className="mt-2 text-sm font-medium leading-relaxed text-slate-500">
-        이메일로 받으신 <span className="font-bold text-slate-800">6자리 숫자</span>를
+        이메일로 받으신 <span className="font-bold text-slate-800">6자리 코드</span>를
         <br />
         아래에 입력해 주세요.
       </p>

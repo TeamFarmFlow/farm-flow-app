@@ -13,10 +13,16 @@ export const PERMISSION_GROUPS: PermissionGroup[] = [
   },
   {
     title: '멤버 관리',
-    keys: [PermissionKey.InvitationCreate, PermissionKey.MemberRead, PermissionKey.MemberRoleUpdate, PermissionKey.MemberRemove],
+    keys: [
+      PermissionKey.InvitationCreate,
+      PermissionKey.MemberRead,
+      PermissionKey.MemberRoleUpdate,
+      PermissionKey.MemberPayUpdate,
+      PermissionKey.MemberRemove,
+    ],
   },
   {
     title: '급여/정산',
-    keys: [PermissionKey.MemberPayUpdate, PermissionKey.AttendanceHistoryUpdate, PermissionKey.PayrollRead],
+    keys: [PermissionKey.PayrollRead, PermissionKey.PayrollAttendanceHistoryUpdate, PermissionKey.PayrollAttendanceHistoryDelete],
   },
 ];
